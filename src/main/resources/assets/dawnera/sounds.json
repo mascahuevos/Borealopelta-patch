@@ -1,0 +1,16 @@
+{
+  "attack1": { "sounds": ["dawnera:mob/borealopelta/attack1"] },
+  "attack2": { "sounds": ["dawnera:mob/borealopelta/attack2"] },
+  "attack3": { "sounds": ["dawnera:mob/borealopelta/attack3"] },
+  "down": { "sounds": ["dawnera:mob/borealopelta/down"] },
+  "eat1": { "sounds": ["dawnera:mob/borealopelta/eat1"] },
+  "eat2": { "sounds": ["dawnera:mob/borealopelta/eat2"] },
+  "idle1": { "sounds": ["dawnera:mob/borealopelta/idle1"] },
+  "idle2": { "sounds": ["dawnera:mob/borealopelta/idle2"] },
+  "idle3": { "sounds": ["dawnera:mob/borealopelta/idle3"] },
+  "idle4": { "sounds": ["dawnera:mob/borealopelta/idle4"] },
+  "roar": { "sounds": ["dawnera:mob/borealopelta/roar"] },
+  "spikes1": { "sounds": ["dawnera:mob/borealopelta/spikes1"] },
+  "spikes2": { "sounds": ["dawnera:mob/borealopelta/spikes2"] },
+  "spikes3": { "sounds": ["dawnera:mob/borealopelta/spikes3"] }
+}

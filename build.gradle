@@ -1,0 +1,86 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '[6.0,6.2)', changing: true
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+version = '1.0.0'
+group = 'com.borealopeltapatch'
+
+base {
+    archivesName = 'borealopeltapatch'
+}
+
+minecraft {
+    // Mismo mapeo que usa The Dawn Era, así todo coincide
+    mappings channel: 'official', version: '1.20.1'
+
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                borealopeltapatch {
+                    source sourceSets.main
+                }
+            }
+        }
+        client {
+        }
+        server {
+            args '--nogui'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    // CurseMaven: nos deja usar jars de CurseForge ya compilados como dependencia,
+    // y ForgeGradle los deobfusca automáticamente para que coincidan con
+    // nuestras mappings 'official' -- ACA está la magia que nos ahorra
+    // tener que arreglar los 1159 nombres SRG del proyecto grande.
+    maven {
+        url = 'https://www.cursemaven.com'
+        content { includeGroup 'curse.maven' }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:1.20.1-47.4.0"
+
+    // AstemirLib 1.25 (la misma versión que usa The Dawn Era 0.642)
+    implementation fg.deobf('curse.maven:astemirlib-933306:5066295')
+
+    // The Dawn Era 0.642 -- la dependemos como librería, NO como código fuente propio.
+    // fg.deobf() hace que todas sus clases (BaseAnimal, TDEEntities, etc.) aparezcan
+    // en tu IDE/compilador con los nombres reales de Mojang, no con SRG.
+    implementation fg.deobf('curse.maven:the-dawn-era-965477:7299919')
+}
+
+jar {
+    manifest {
+        attributes([
+            'Specification-Title'     : 'borealopeltapatch',
+            'Specification-Vendor'    : 'BorealopeltaPatch',
+            'Specification-Version'   : '1',
+            'Implementation-Title'    : 'Borealopelta Patch',
+            'Implementation-Version'  : '1.0.0',
+            'Implementation-Vendor'   : 'BorealopeltaPatch'
+        ])
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

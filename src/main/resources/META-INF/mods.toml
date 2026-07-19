@@ -1,0 +1,38 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="borealopeltapatch"
+version="1.0.0"
+displayName="Borealopelta Patch"
+description="Agrega Borealopelta (portado del addon Bedrock de King Porosus) a The Dawn Era, y arregla el bug de doma de todos los dinosaurios."
+
+[[dependencies.borealopeltapatch]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.borealopeltapatch]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.20.2)"
+    ordering="NONE"
+    side="BOTH"
+
+# Requerimos que The Dawn Era y AstemirLib ya estén cargados
+[[dependencies.borealopeltapatch]]
+    modId="dawnera"
+    mandatory=true
+    versionRange="[0.642,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.borealopeltapatch]]
+    modId="astemirlib"
+    mandatory=true
+    versionRange="[1.25,)"
+    ordering="AFTER"
+    side="BOTH"
