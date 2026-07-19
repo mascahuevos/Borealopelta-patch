@@ -1,1 +1,64 @@
-(src/main/java/com/borealopeltapatch/client/BorealopeltaModel.java)
+# Compiled and build artifacts
+*.class
+*.o
+*.obj
+*.out
+build/
+target/
+
+# Dependencies
+lib/
+libs/
+jars/
+*.jar
+*.war
+*.ear
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Gradle
+.gradle/
+build/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Project specific
+*.class
+**/EntityBorealopelta.class
+**/entity/*.class
+**/target/**
+**/build/**
