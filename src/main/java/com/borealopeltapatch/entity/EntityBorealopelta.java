@@ -229,6 +229,10 @@ public class EntityBorealopelta
             public boolean canUse() {
                 if (!this.isCanBeUsed()) return false;
                 if (this.mob.getDigCooldown() > 0 || this.mob.isBaby() || this.mob.getTarget() != null) return false;
+                // FIX: Si ya tenemos un digPos válido, no buscamos otro nuevo hasta terminar este.
+                // Esto evita que canUse() siga retornando true indefinidamente mientras
+                // canContinueToUse() mantiene el goal activo, bloqueando random_stroll.
+                if (this.digPos != null) return false;
                 BlockPos pos = this.getDigPos(this.mob.blockPosition());
                 if (pos == null) return false;
                 this.digPos = pos;

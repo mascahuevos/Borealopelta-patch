@@ -44,8 +44,19 @@
     ],
     "Goals": [
       { "Priority": 0, "ID": "dawnera:float_on_water" },
-      { "Priority": 0, "ID": "dawnera:love_timed", "Delay": 2000 },
-      { "Priority": 2, "ID": "dawnera:breed_pregnancy", "Speed": 0.8 },
+      { 
+        "Priority": 0, 
+        "ID": "dawnera:love_timed", 
+        "Delay": 2000,
+        "FoodItems": ["minecraft:wheat"]
+      },
+      { 
+        "Priority": 2, 
+        "ID": "dawnera:breed_pregnancy", 
+        "Speed": 0.8,
+        "EggBlock": "dawnera:borealopelta_egg_block",
+        "LayBlockConditions": ["minecraft:grass_block"]
+      },
       {
         "Priority": 2,
         "ID": "dawnera:melee_attack",
