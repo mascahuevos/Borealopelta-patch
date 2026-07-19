@@ -150,12 +150,14 @@ public class EntityBorealopelta
             }
             if (target != null && target.isAlive() && this.canAttack(target)
                     && this.distanceToSqr(target) <= 25.0) {
+                // Aplicamos daño directo al target
                 EntityUtils.damageEntity((LivingEntity) this, (Entity) target, (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
-            } else {
-                // No hay target directo -- probamos el barrido frontal como único
-                // método en este caso (evita pegarle dos veces al mismo bicho).
-                TDEUtils.attackFrontEntities(this, 5.0f);
+                // Forzamos knockback para asegurar que se registre el golpe
+                target.knockback(0.5F, Math.sin(this.getYRot() * ((float)Math.PI / 180F)), -Math.cos(this.getYRot() * ((float)Math.PI / 180F)));
             }
+            // Siempre ejecutamos el barrido frontal como método secundario
+            // (por si hay múltiples enemigos cerca o el target principal murió)
+            TDEUtils.attackFrontEntities(this, 5.0f);
         }
     }
 
@@ -229,6 +231,10 @@ public class EntityBorealopelta
             public boolean canUse() {
                 if (!this.isCanBeUsed()) return false;
                 if (this.mob.getDigCooldown() > 0 || this.mob.isBaby() || this.mob.getTarget() != null) return false;
+                // FIX: Si ya tenemos un digPos válido, no buscamos otro nuevo hasta terminar este.
+                // Esto evita que canUse() siga retornando true indefinidamente mientras
+                // canContinueToUse() mantiene el goal activo, bloqueando random_stroll.
+                if (this.digPos != null) return false;
                 BlockPos pos = this.getDigPos(this.mob.blockPosition());
                 if (pos == null) return false;
                 this.digPos = pos;

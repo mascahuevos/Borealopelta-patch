@@ -56,16 +56,18 @@ public class BorealopeltaModel extends TDEEntityModel<EntityBorealopelta> {
             // caminar) -> pose de reposo en vez del idle parado normal.
             animation = animator.getAnimation("animation.model.rest");
         } else {
-            // isSprinting() ya refleja de forma confiable la intención real de
-            // correr (tanto IA como jugador montado con CanSprint), así que no
-            // hace falta -ni conviene- inferirlo a partir de la magnitud del
-            // movimiento por tick: esa magnitud real resultó ser mucho más
-            // chica de lo esperado en la práctica, así que un umbral fijo y
-            // bajo alcanza para distinguir "caminando" de "parado".
+            // Usamos una combinación de velocidad delta + posición anterior para
+            // detectar movimiento real incluso cuando el pathfinding aplica
+            // aceleración gradual. Esto fija el bug donde no se reproducía
+            // walk/run al seguir al jugador o al moverse por IA.
             double moveLen = entity.getDeltaMovement().horizontalDistance();
+            double dx = entity.getX() - entity.xo;
+            double dz = entity.getZ() - entity.zo;
+            double actualMove = Math.sqrt(dx * dx + dz * dz);
+            
             if (entity.isSprinting()) {
                 animation = animator.getAnimation("animation.model.run");
-            } else if (!entity.isCrouching() && moveLen > 0.005) {
+            } else if (!entity.isCrouching() && (moveLen > 0.001 || actualMove > 0.001)) {
                 animation = animator.getAnimation("animation.model.walk");
             } else {
                 animation = animator.getAnimation("animation.model.idle");
